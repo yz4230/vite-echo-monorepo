@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/spf13/cobra"
@@ -15,6 +16,17 @@ var rootFlags struct {
 	static  string
 }
 
+func preferredPort() int {
+	if env := os.Getenv("PORT"); env != "" {
+		if port, err := strconv.Atoi(env); err == nil {
+			return port
+		} else {
+			panic(fmt.Sprintf("Invalid PORT environment variable: %v", err))
+		}
+	}
+	return rootFlags.port
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use: "vite-echo-monorepo server",
@@ -24,7 +36,7 @@ var rootCmd = &cobra.Command{
 		e.GET("/api/hello", func(c echo.Context) error {
 			return c.String(http.StatusOK, "world!")
 		})
-		e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", rootFlags.port)))
+		e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", preferredPort())))
 	},
 }
 
