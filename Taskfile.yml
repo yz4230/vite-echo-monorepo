@@ -1,35 +1,32 @@
 # https://taskfile.dev
 
-version: '3'
-
-vars:
-  GREETING: Hello, World!
+version: "3"
 
 tasks:
-  'dev:frontend':
+  dev:frontend:
     cmd: bun dev
     dir: ./frontend
-  'dev:backend':
+  dev:backend:
     cmd: air
     dir: ./backend
   dev:
     deps:
       - dev:frontend
       - dev:backend
-  'test:frontend':
+  test:frontend:
     cmd: bun run test
     dir: ./frontend
-  'test:backend':
+  test:backend:
     cmd: go test ./...
     dir: ./backend
   test:
     deps:
       - test:frontend
       - test:backend
-  'build:frontend':
+  build:frontend:
     cmd: bun run build
     dir: ./frontend
-  'build:backend':
+  build:backend:
     cmd: go build -o ./bin/server .
     dir: ./backend
   build:
