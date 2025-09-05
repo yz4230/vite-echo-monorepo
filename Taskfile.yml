@@ -1,0 +1,18 @@
+# https://taskfile.dev
+
+version: '3'
+
+vars:
+  GREETING: Hello, World!
+
+tasks:
+  'dev:frontend':
+    cmd: bun dev
+    dir: ./frontend
+  'dev:backend':
+    cmd: go run .
+    dir: ./backend
+  dev:
+    deps:
+      - dev:frontend
+      - dev:backend
