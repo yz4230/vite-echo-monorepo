@@ -21,8 +21,8 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		e := echo.New()
 		e.Static("/", rootFlags.static)
-		e.GET("/", func(c echo.Context) error {
-			return c.String(http.StatusOK, "Hello, World!")
+		e.GET("/api/hello", func(c echo.Context) error {
+			return c.String(http.StatusOK, "world!")
 		})
 		e.Logger.Fatal(e.Start(fmt.Sprintf(":%d", rootFlags.port)))
 	},
