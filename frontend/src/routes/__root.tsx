@@ -1,6 +1,6 @@
 import { Outlet, createRootRouteWithContext } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
-import { TanstackDevtools } from '@tanstack/react-devtools'
+import { TanStackDevtools } from '@tanstack/react-devtools'
 
 import Header from '../components/Header'
 
@@ -17,7 +17,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
     <>
       <Header />
       <Outlet />
-      <TanstackDevtools
+      <TanStackDevtools
         config={{
           position: 'bottom-left',
         }}
