@@ -12,6 +12,7 @@ import (
 var rootFlags struct {
 	verbose bool
 	port    int
+	static  string
 }
 
 // rootCmd represents the base command when called without any subcommands
@@ -19,6 +20,7 @@ var rootCmd = &cobra.Command{
 	Use: "vite-echo-monorepo server",
 	Run: func(cmd *cobra.Command, args []string) {
 		e := echo.New()
+		e.Static("/", rootFlags.static)
 		e.GET("/", func(c echo.Context) error {
 			return c.String(http.StatusOK, "Hello, World!")
 		})
@@ -38,4 +40,5 @@ func Execute() {
 func init() {
 	rootCmd.PersistentFlags().BoolVarP(&rootFlags.verbose, "verbose", "v", false, "Enable verbose output")
 	rootCmd.Flags().IntVarP(&rootFlags.port, "port", "p", 8080, "Port to run the server on")
+	rootCmd.Flags().StringVarP(&rootFlags.static, "static", "s", "./static", "Path to static files")
 }

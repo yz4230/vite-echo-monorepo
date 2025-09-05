@@ -10,7 +10,7 @@ tasks:
     cmd: bun dev
     dir: ./frontend
   'dev:backend':
-    cmd: go run .
+    cmd: air
     dir: ./backend
   dev:
     deps:
@@ -26,3 +26,13 @@ tasks:
     deps:
       - test:frontend
       - test:backend
+  'build:frontend':
+    cmd: bun run build
+    dir: ./frontend
+  'build:backend':
+    cmd: go build -o ./bin/server .
+    dir: ./backend
+  build:
+    deps:
+      - build:frontend
+      - build:backend
